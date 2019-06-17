@@ -1,13 +1,17 @@
+#ifndef STUDENT_H
+#define STUDENT_H
+
 #include "book.h"
+#include <string>
 using namespace std;
 class student
 {
 private:
-    string name;
-    int id;
+    string sName;
+    int sId;
     book currBook;
 public:
-    student();
+    student(int inId, string inName,book inBook);
     ~student();
     void setId(int id);
     void setName(string name);
@@ -16,5 +20,6 @@ public:
     string getName();
     int getId();
     book getBook();
+    bool isAdmin();
 };
-
+#endif

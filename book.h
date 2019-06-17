@@ -1,3 +1,7 @@
+#ifndef BOOK_H
+#define BOOK_H
+#include <string>
+using namespace std;
 class book{
     private:
         int bId;
@@ -5,6 +9,7 @@ class book{
         string bAuthor;
 
     public:
+        book(){};
         book(int id,string name,string author);
         ~book();
         void setId(int id);
@@ -14,3 +19,4 @@ class book{
         string getName();
         string getAuthor();
 };
+#endif

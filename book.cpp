@@ -1,5 +1,7 @@
 #include "book.h"
+#include <string>
 using namespace std;
+
 
 book::book(int id, string name, string author){
     setId(id);
