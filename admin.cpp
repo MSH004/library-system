@@ -1,33 +1,39 @@
 #include "admin.h"
 
 admin::admin(){ }
-admin::admin(int inId, string inName, string inPass){
-    setId(inId);
+admin::admin(string inName, string inUserName,string inPass){
     setName(inName);
+    setUserName(inUserName);
     setPassword(inPass);
 }
 admin::~admin(){}
 
-void admin::setId(int inId){
-    adId=inId;
-}
 void admin::setName(string inName){
     adName=inName;
 }
 void admin::setPassword(string inPass){
     adPassword=inPass;
 }
-
-int admin::getId(){
-    return  adId;
+void admin::setUserName(string inUserName){
+    adUserName=inUserName;
 }
+
 string admin::getName(){
     return adName;
 }
 string admin::getPassword(){
     return  adPassword;
 }
+string admin::getUserName(){
+    return adUserName;
+}
 
 bool admin::isAdmin(){
     return true;
 }
+string admin::toString(){
+    string output;
+    output="name: "+admin::getName()+"\nusername: "+admin::getUserName()+"password: "+admin::getPassword();
+    return output;
+
+} 

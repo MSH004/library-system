@@ -13,6 +13,11 @@ struct userCredits{
 int introList();
 userCredits logIn(int accType);
 bool verifyUser(userCredits userDetails);
+void studentView(userCredits userInfo);
+void adminView(userCredits userInfo);
+void addAdmin();
+void addStudent();
+void addBook();
 
 int main(){
     int accType;
@@ -21,7 +26,10 @@ int main(){
     userDetails=logIn(accType);
     bool verifiedUser=verifyUser(userDetails);
     if(verifiedUser){
-        cout<<"Welcome to the library system"<<endl;
+        if(accType==1)
+            adminView(userDetails);
+        else if(accType==2)
+            studentView(userDetails);
     }else{
         cout<<"wrong username or password"<<endl;
     }
@@ -29,7 +37,7 @@ int main(){
 }
 int introList(){
     int accType=0;
-    system("cls");
+    system("clear");
     cout<<"=============================="<<endl;
     cout<<"Welcome to Library System"<<endl;
     cout<<"Choose your account type: "<<endl;
@@ -86,7 +94,7 @@ bool verifyUser(userCredits userDetails){
         ftype=line.substr(pos);
         ftypeInt=stoi(ftype);
         // cout<<"user name: "<<fuserName<<"\npassword: "<<fuserPassWord<<"\n" <<fuserName.length()<<"\n"<<fuserPassWord.length()<<"\ntype: "<<ftype<<endl;
-        //  cout<<"user name: "<<userDetails.name<<"\npassword: "<<userDetails.password<<"\ntype: "<<userDetails.type<<endl;
+        // cout<<"user name: "<<userDetails.name<<"\npassword: "<<userDetails.password<<"\ntype: "<<userDetails.type<<endl;
         if(fuserPassWord==userDetails.password && ftypeInt==userDetails.type){
             return true;
         }
@@ -94,4 +102,68 @@ bool verifyUser(userCredits userDetails){
     }
   }
   return false;
+}
+void studentView(userCredits userInfo){
+    int userInput;
+    system("clear");
+    cout<<"Welcom, "<<userInfo.name<<"! (student)"<<endl;
+    cout<<"\n\n\nChoose one of the following actions:"<<endl;
+    cout<<"[1] Borrow a book\n[2] Deposit a book"<<endl;
+    cin>>userInput;
+    if(userInput==1){
+        //borrow a book
+        system("clear");
+        cout<<"Choose one of the following books"<<endl;
+
+    }else if(userInput==2){
+        //deposit a book
+        cout<<"to be done"<<endl;
+
+
+    }
+    
+
+}
+void adminView(userCredits userInfo){
+    int choice;
+    system("clear");
+    cout<<"Choose an action: "<<endl;
+    cout<<"[1] add a new admin\n[2] add a new student\n[3] add a new book"<<endl;
+    cin>>choice;
+    switch(choice){
+        case 1:
+            addAdmin();
+            break;
+        case 2:
+            addStudent();
+            break;
+        case 3:
+            addBook();
+            break;
+    }
+    
+
+}
+void addAdmin(){
+    string name;
+    string username;
+    string password;
+
+    cout<<"Enter admin name: ";
+    cin>>name;
+    cout<<"Enter username: ";
+    cin>>username;
+    cout<<"Enter password: ";
+    cin>>password;
+    admin* newAdmin=new admin(name,username,password);   
+
+    // cout<<newAdmin.toString()<<endl;
+    // ofstream outputFile("adminCredit.txt",ios::out);
+    // outputFile<<"{\n"+newAdmin.toString()+"\n}\n";
+}
+void addStudent(){
+
+}
+void addBook(){
+
 }

@@ -4,24 +4,27 @@
 using namespace std;
 class admin{
 private:
-  int adId;
   string adName;
   string adPassword;
+  string adUserName;
+
 
 public:
   admin();
-  admin(int inId, string inName, string inPass);
+  admin(string inName, string inUserName,string inPass);
   ~admin();
 
-  void setId(int inId);
   void setName(string inName);
   void setPassword(string inPass);
+  void setUserName(string inUserName);
 
-  int getId();
   string getName();
   string getPassword();
+  string getUserName();
 
   bool isAdmin();
+
+  string toString();
 
 };
 #endif
