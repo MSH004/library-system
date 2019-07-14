@@ -74,11 +74,11 @@ void student::depositBook(int input){
 
 string student::toString(){
   string output;
-  output="name:"+student::getName();
+  output="accountType:student";
+  output+="\nname:"+student::getName();
   output+="\nusername:"+student::getUserName();
   output+="\npassword:"+student::getPassword();
   output+="\n"+student::getBook().toString();
-  output+="\naccountType:student";
   if(hasBook)
     output+="\nhasBook:true";
   else

@@ -1,5 +1,4 @@
+accountType:admin
 name:alaa aldin
 username:alaadin
 password:a12345
-accountType:admin
-EOF

@@ -11,31 +11,28 @@ struct userCredits{
     string password;
     string type;
 };
-string introList();
-userCredits logIn(string accType);
+
+userCredits logIn();
 bool verifyUser(userCredits userDetails);
-void studentView(userCredits userInfo);
+void studentView();
 void adminView();
 void addAdmin();
 void addStudent();
 void addBook();
-void loadLoginData();
 admin adminData;
 student studentData;
 
 int main(){
-    string accType;
     userCredits userDetails;
     while(true){
-        accType=introList();
-        userDetails=logIn(accType);
+        userDetails=logIn();
         bool verifiedUser=verifyUser(userDetails);
-        cout<<verifiedUser<<"verification results"<<endl;
         if(verifiedUser){
-            if(accType=="a")
+
+            if(userDetails.type=="a"){
                 adminView();
-            else if(accType=="s")
-                studentView(userDetails);
+            }else if(userDetails.type=="s")
+                studentView();
         }else{
             cout<<"wrong username or password"<<endl;
             
@@ -45,24 +42,23 @@ int main(){
     return 0;
 }
 
-string introList(){
-    int accType=0;
-    // system("clear");
+
+userCredits logIn(){
+    userCredits userDetails;
+    int input=0;
+    string accType;
+    system("clear");
     cout<<"=============================="<<endl;
     cout<<"Welcome to Library System"<<endl;
     cout<<"Choose your account type: "<<endl;
     cout<<"[1] admin\n[2] student"<<endl;
     cout<<"=============================="<<endl;
-    cin>>accType;
-    if(accType==1){
-        return "a";
-    } else if(accType==2){
-        return "s";
+    cin>>input;
+    if(input==1){
+        accType= "a";
+    } else if(input==2){
+        accType= "s";
     }
-}
-
-userCredits logIn(string accType){
-    userCredits userDetails;
     cout<<"Enter username: ";
     cin>>userDetails.name;
 
@@ -78,107 +74,84 @@ bool verifyUser(userCredits userDetails){
     int listSize=100;
     string line;
     int pos;
-    cout<<userDetails.name<<endl;
-    cout<<userDetails.password<<endl;
-    cout<<userDetails.type<<endl;
     
     if(userDetails.type=="a"){
-            ifstream adminFile;
-            string type;
-            adminFile.open("logFiles/"+userDetails.name+".txt",ios::in);
-            if (adminFile.is_open()){
-                admin adminLog;
-                while ( !adminFile.eof() ){
+        ifstream adminFile;
+        string type;
+        adminFile.open("logFiles/"+userDetails.name+".txt",ios::in);
+        if (adminFile.is_open()){
+            admin adminLog;
+            while ( !adminFile.eof() ){
+                getline (adminFile,line);
+                pos=line.find(":");
+                if(line.substr(0,pos).compare("accountType")==0){
+                    type=line.substr(pos+1);
+                }
+                if(type.compare("admin")==0){
+
                     getline (adminFile,line);
                     pos=line.find(":");
                     if(line.substr(0,pos).compare("name")==0){
                         line=line.substr(pos+1);
                         adminLog.setName(line);
-                        cout<<line<<endl;
-                        cout<<adminLog.getName()<<endl;
                     }
-                    
-
                     getline (adminFile,line);
                     pos=line.find(":");
                     if(line.substr(0,pos).compare("username")==0){
                         line=line.substr(pos+1);
                         adminLog.setUserName(line);
-                        cout<<line<<endl;
-                        cout<<adminLog.getUserName()<<endl;
                     }
-                    
-
                     getline (adminFile,line);
                     pos=line.find(":");
                     if(line.substr(0,pos).compare("password")==0){
                         line=line.substr(pos+1);
                         adminLog.setPassword(line);
-                        cout<<line<<endl;
-                        cout<<adminLog.getPassword()<<endl;
                     }
-
-                    getline (adminFile,line);
-                    pos=line.find(":");
-                    if(line.substr(0,pos).compare("accountType")==0){
-                        type=line.substr(pos+1);
-                    }
-                    
-
                     adminData=adminLog;
-                    cout<<adminData.toString()<<endl<<endl;
-                    cout<<adminLog.toString()<<endl;
-
-                    
-                    
-             
-                }
-                cout<<"end of file"<<endl;
-                adminFile.close();
                 
-                cout<<userDetails.name<<endl;
-                cout<<adminData.getUserName()<<endl;
-                cout<<adminData.getPassword()<<endl;
-                bool result=userDetails.name.compare(adminData.getUserName());
-                cout<<type<<endl;
-                if(type.compare("admin")==0){
+                    adminFile.close();
+                
                     if(userDetails.name.compare(adminData.getUserName())==0){
-                        cout<<"name passed"<<endl;
                         if(userDetails.password.compare(adminData.getPassword())==0){
-                            cout<<"password passed"<<endl;
                             return true;
                         }
                         else{
                             cout<<"Sorry! Wrong password. "<<endl;
+                            usleep(2000000);
                             return false;
                         }
                     }else{
                         cout<<"Sorry! User name does not exist."<<endl;
+                        usleep(2000000);
                         return false;
                     }
-                }
-            }else{
-                cout<<"username does not exist!!"<<endl;
-                return false;
-            }
             
-            // for(int i=0;i<100;i++){
-            //     cout<<adminData[i].toString()<<endl;
-            // }
-        }else if(userDetails.type=="s"){
-            ifstream studentFile;
-            string type;
-            cout<<"in student"<<endl;
-            studentFile.open("logFiles/"+userDetails.name+".txt",ios::in);
-            if (studentFile.is_open()){
-                student studentLog;
-                while ( !studentFile.eof() ){
+                }else{
+                    cout<<"username does not exist!!"<<endl;
+                    usleep(2000000);
+                    return false;
+                }
+            }
+        }
+        
+    }else if(userDetails.type=="s"){
+        ifstream studentFile;
+        string type;
+        studentFile.open("logFiles/"+userDetails.name+".txt",ios::in);
+        if (studentFile.is_open()){
+            student studentLog;
+            while ( !studentFile.eof() ){
+                getline (studentFile,line);
+                pos=line.find(":");
+                if(line.substr(0,pos).compare("accountType")==0){
+                    type=line.substr(pos+1);
+                }
+                if(type.compare("student")==0){
                     getline (studentFile,line);
                     pos=line.find(":");
                     if(line.substr(0,pos).compare("name")==0){
                         line=line.substr(pos+1);
                         studentLog.setName(line);
-                        cout<<line<<endl;
                     }
                                         
                     getline (studentFile,line);
@@ -186,7 +159,6 @@ bool verifyUser(userCredits userDetails){
                     if(line.substr(0,pos).compare("username")==0){
                         line=line.substr(pos+1);
                         studentLog.setUserName(line);
-                        cout<<line<<endl;
                     }
                     
                     
@@ -195,7 +167,6 @@ bool verifyUser(userCredits userDetails){
                     if(line.substr(0,pos).compare("password")==0){
                         line=line.substr(pos+1);
                         studentLog.setPassword(line);
-                        cout<<line<<endl;
                     }
                     
                     getline (studentFile,line);
@@ -204,7 +175,6 @@ bool verifyUser(userCredits userDetails){
                     if(line.substr(0,pos).compare("bookId")==0){
                         line=line.substr(pos+1);
                         newBook.setId(line);
-                        cout<<line<<endl;
                     }                    
 
                     getline (studentFile,line);
@@ -212,7 +182,6 @@ bool verifyUser(userCredits userDetails){
                     if(line.substr(0,pos).compare("bookTitle")==0){
                         line=line.substr(pos+1);
                         newBook.setName(line);
-                        cout<<line<<endl;
                     }                    
 
                     getline (studentFile,line);
@@ -220,73 +189,49 @@ bool verifyUser(userCredits userDetails){
                     if(line.substr(0,pos).compare("bookAuthor")==0){
                         line=line.substr(pos+1);
                         newBook.setAuthor(line);
-                        cout<<line<<endl;
                         studentLog.borrowBook(newBook);
                     }
                     
-                    
-
                     getline (studentFile,line);
                     pos=line.find(":");
-                    if(line.substr(0,pos).compare("accountType")==0){
-                        type=line.substr(pos+1);
-                        cout<<type<<"::importing"<<endl;
-                        
-                    }
-
-                    getline (studentFile,line);
-                    pos=line.find(":");
-                    cout<<line.substr(0,pos)<<endl;
                     if(line.substr(0,pos).compare("hasBook")==0){
                         line=line.substr(pos+1);
-                        cout<<line<<endl;
                         if(line.compare("false")==0){
                             studentLog.depositBook(1);
                         }
-                        cout<<line<<endl;
                     }
-                   
-                    
-                    studentData=studentLog;
-                    cout<<studentData.toString()<<endl;
-                    cout<<studentLog.toString()<<endl;
-                    
-
-
+                
+                studentData=studentLog;
                 }
                 studentFile.close();
-                cout<<userDetails.name.length()<<endl;
-                cout<<studentData.getUserName().length()<<endl;
-                cout<<studentData.getPassword().length()<<endl;
-                bool result=userDetails.name.compare(studentData.getUserName());
-                cout<<result<<endl;
-                cout<<type<<endl;
-                if(type.compare("student")==0){
-                    if(userDetails.name.compare(studentData.getUserName())==0){
-                        cout<<"name passed"<<endl;
-                        if(userDetails.password.compare(studentData.getPassword())==0){
-                            cout<<"password passed"<<endl;
-                            return true;
-                        }
-                        else{
-                            cout<<"Sorry! Wrong password. "<<endl;
-                            return false;
-                        }
-                    }else{
-                        cout<<"Sorry! User name does not exist."<<endl;
+            
+                if(userDetails.name.compare(studentData.getUserName())==0){
+                    if(userDetails.password.compare(studentData.getPassword())==0){
+                        return true;
+                    }
+                    else{
+                        cout<<"Sorry! Wrong password. "<<endl;
+                        usleep(2000000);
                         return false;
                     }
+                }else{
+                    cout<<"Sorry! User name does not exist."<<endl;
+                    usleep(2000000);
+                    return false;
                 }
-            }else{
-                cout<<"username does not exist!!"<<endl;
-                return false;
             }           
-        }    
+        }else{
+                cout<<"username does not exist!!"<<endl;
+                usleep(2000000);
+                return false;
+            }
+                
+    }    
 }
-void studentView(userCredits userInfo){
+void studentView(){
     int userInput;
-    // system("clear");
-    cout<<"Welcom, "<<userInfo.name<<"! (student)"<<endl;
+    system("clear");
+    cout<<"Welcome, "<<studentData.getName()<<"! (student)"<<endl;
     cout<<"\n\n\nChoose one of the following actions:"<<endl;
     cout<<"[1] Borrow a book\n[2] Deposit a book"<<endl;
     cin>>userInput;
@@ -306,7 +251,8 @@ void studentView(userCredits userInfo){
 }
 void adminView(){
     int choice;
-    // system("clear");
+    system("clear");
+    cout<<"Welcome, "<<adminData.getName()<<"! (admin)"<<endl;
     cout<<"Choose an action: "<<endl;
     cout<<"[1] add a new admin\n[2] add a new student\n[3] add a new book\n[4] logout"<<endl;
     cin>>choice;
@@ -321,7 +267,7 @@ void adminView(){
             addBook();
             break;
         case 4:
-            introList();
+            main();
 
     }
     
@@ -361,8 +307,6 @@ void addAdmin(){
 void addStudent(){
     string input;
     student newStudent;
-
-    
     cout<<"Enter student name: ";
     cin.ignore(32767, '\n');
     getline(cin,input);
