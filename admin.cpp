@@ -33,7 +33,8 @@ bool admin::isAdmin(){
 }
 string admin::toString(){
     string output;
-    output="name: "+admin::getName()+"\nusername: "+admin::getUserName()+"password: "+admin::getPassword();
+    output="name:"+admin::getName()+"\nusername:"+admin::getUserName()+"\npassword:"+admin::getPassword();
+    output+="\naccountType:admin";
     return output;
 
 } 

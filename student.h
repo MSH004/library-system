@@ -10,14 +10,13 @@ private:
     string sName;
     string sUserName;
     string sPassword;
-    int sId;
     book currBook;
     bool hasBook;
 
 public:
-    student(int inId, string inName,string inUserName, string inPassword);
+    student();
+    student( string inName,string inUserName, string inPassword);
     ~student();
-    void setId(int id);
     void setName(string name);
     void setUserName(string username);
     void setPassword(string password);
@@ -25,10 +24,10 @@ public:
     string getName();
     string getUserName();
     string getPassword();
-    int getId();
     book getBook();
     bool isAdmin();
     void borrowBook(book inBook);
-    void depositBook();
+    void depositBook(int input=0);
+    string toString();
 };
 #endif

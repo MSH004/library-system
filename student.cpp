@@ -1,20 +1,21 @@
 #include "student.h"
-#include "book.h"
-#include "iostream"
+
+#include <iostream>
 using namespace std;
 
-student::student(int inId, string inName,string inUserName, string inPassword)
+student::student(){}
+
+student::student( string inName,string inUserName, string inPassword)
 {
-  setId(inId);
+
   setName(inName);
   setUserName(inUserName);
   setPassword(inPassword);
+  hasBook=false;
 }
 
 student::~student(){}
-void student::setId(int inId){
-  sId=inId;
-}
+
 void student::setName(string inName){
   sName=inName;
 }
@@ -23,10 +24,6 @@ void student::setUserName(string inUserName){
 }
 void student::setPassword(string inPassword){
   sPassword=inPassword;
-}
-
-int student::getId(){
-  return sId;
 }
 
 string student::getName(){
@@ -54,19 +51,38 @@ void student::borrowBook(book inBook){
   hasBook=true;
   }   
 }
-void student::depositBook(){
+void student::depositBook(int input){
   char choice;
-  cout<<"The book you have now is: "<<currBook.getName()<<endl;
-  cout<<"Deposit the book(y/n): ";
-  while(true){
-    cin>>choice;
-    if(choice=='y'||choice=='Y'){
-      hasBook=false;
-      break;
-    }else if(choice=='n'|| choice=='N'){
-      break;
-    }else{
-      cout<<"Please Enter 'y' for yes or 'n' for No : ";
+  if(input==1){
+    hasBook=false;
+  }else{
+    cout<<"The book you have now is: "<<currBook.getName()<<endl;
+    cout<<"Deposit the book(y/n): ";
+    while(true){
+      cin>>choice;
+      if(choice=='y'||choice=='Y'){
+        hasBook=false;
+        break;
+      }else if(choice=='n'|| choice=='N'){
+        break;
+      }else{
+        cout<<"Please Enter 'y' for yes or 'n' for No : ";
+      }
     }
   }
+}
+
+string student::toString(){
+  string output;
+  output="name:"+student::getName();
+  output+="\nusername:"+student::getUserName();
+  output+="\npassword:"+student::getPassword();
+  output+="\n"+student::getBook().toString();
+  output+="\naccountType:student";
+  if(hasBook)
+    output+="\nhasBook:true";
+  else
+    output+="\nhasBook:false";
+  
+  return output;
 }
