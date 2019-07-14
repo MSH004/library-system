@@ -8,18 +8,26 @@ class student
 {
 private:
     string sName;
-    int sId;
+    string sUserName;
+    string sPassword;
     book currBook;
+    bool hasBook;
+
 public:
-    student(int inId, string inName,book inBook);
+    student();
+    student( string inName,string inUserName, string inPassword);
     ~student();
-    void setId(int id);
     void setName(string name);
-    void setBook(book inBook);
+    void setUserName(string username);
+    void setPassword(string password);
 
     string getName();
-    int getId();
+    string getUserName();
+    string getPassword();
     book getBook();
     bool isAdmin();
+    void borrowBook(book inBook);
+    void depositBook(int input=0);
+    string toString();
 };
 #endif

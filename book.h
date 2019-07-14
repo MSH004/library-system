@@ -4,19 +4,20 @@
 using namespace std;
 class book{
     private:
-        int bId;
+        string bId;
         string bName;
         string bAuthor;
 
     public:
         book(){};
-        book(int id,string name,string author);
+        book(string id,string name,string author);
         ~book();
-        void setId(int id);
+        void setId(string id);
         void setName(string name);
         void setAuthor(string author);
-        int getId();
+        string getId();
         string getName();
         string getAuthor();
+        string toString();
 };
 #endif

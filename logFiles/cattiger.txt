@@ -1,0 +1,8 @@
+name:cat tiger
+username:cattiger
+password:cat123
+bookId:1234abc
+bookTitle:checking
+bookAuthor:random
+accountType:student
+hasBook:false
