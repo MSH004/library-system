@@ -1,8 +1,8 @@
+accountType:student
 name:ashraf sadeq abdo ali yahiya
 username:ashrafsadeq
 password:ashraf0000
-book id:
-book title:
-book author:
-account type:student
-hasbook:false
+bookId:
+bookTitle:
+bookAuthor:
+hasBook:false
