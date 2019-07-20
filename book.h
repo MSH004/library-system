@@ -9,7 +9,7 @@ class book{
         string bAuthor;
 
     public:
-        book(){};
+        book();
         book(string id,string name,string author);
         ~book();
         void setId(string id);

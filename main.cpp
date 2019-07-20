@@ -189,7 +189,7 @@ bool verifyUser(userCredits userDetails){
                     if(line.substr(0,pos).compare("bookAuthor")==0){
                         line=line.substr(pos+1);
                         newBook.setAuthor(line);
-                        studentLog.borrowBook(newBook);
+                        studentLog.addBook(newBook);
                     }
                     
                     getline (studentFile,line);
@@ -230,22 +230,24 @@ bool verifyUser(userCredits userDetails){
 }
 void studentView(){
     int userInput;
-    system("clear");
-    cout<<"Welcome, "<<studentData.getName()<<"! (student)"<<endl;
-    cout<<"\n\n\nChoose one of the following actions:"<<endl;
-    cout<<"[1] Borrow a book\n[2] Deposit a book"<<endl;
-    cin>>userInput;
-    if(userInput==1){
-        //borrow a book
+    
+    while(true){
         system("clear");
-        cout<<"Choose one of the following books"<<endl;
+        cout<<"Welcome, "<<studentData.getName()<<"! (student)"<<endl;
+        cout<<"\n\n\nChoose one of the following actions:"<<endl;
+        cout<<"[1] Borrow a book\n[2] Deposit a book\n[3] Logout"<<endl;
+        cin>>userInput;
+        if(userInput==1){
+            studentData.borrowBook();
+        }else if(userInput==2){
+            //deposit a book
+            studentData.depositBook();
 
-    }else if(userInput==2){
-        //deposit a book
-        cout<<"to be done"<<endl;
-
-
+        }else if(userInput==3){
+            break;
+        }
     }
+    
     
 
 }
@@ -340,4 +342,39 @@ void addStudent(){
 }
 void addBook(){
 
+    string input;
+    book newBook;
+    cout << "Enter book Id: ";
+    cin.ignore(32767, '\n');
+    getline(cin, input);
+    newBook.setId(input);
+
+    cout << "Enter book title: ";
+    getline(cin, input);
+    newBook.setName(input);
+
+    cout << "Enter book author: ";
+    getline(cin, input);
+    newBook.setAuthor(input);
+
+
+    cout << "Confirm? (y/n): ";
+    cin >> input;
+    if (input == "y" || input == "Y")
+    {
+        string fileName(newBook.getId());
+        cout << newBook.toString() << endl;
+        ofstream outputFile("bookFiles/" + fileName + ".txt", ios::out);
+        outputFile << newBook.toString();
+        outputFile.close();
+
+        ofstream booksListFile("bookFiles/booksList.txt", ios::app);
+        booksListFile << newBook.getId()+"\n";
+        booksListFile.close();
+    }
+    else
+        cout << "Input was discarded";
+
+    usleep(1000000);
+    adminView();
 }
