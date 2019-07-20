@@ -1,0 +1,8 @@
+accountType:student
+name:munaib sadeq alhelali
+username:munaibalhelali
+password:munaib
+bookId:science_flash_points
+bookTitle:science flash points
+bookAuthor:Anne Booney
+hasBook:false

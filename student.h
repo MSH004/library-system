@@ -3,6 +3,10 @@
 
 #include "book.h"
 #include <string>
+#include <fstream>
+#include <unistd.h>
+#include <iostream>
+
 using namespace std;
 class student
 {
@@ -26,7 +30,8 @@ public:
     string getPassword();
     book getBook();
     bool isAdmin();
-    void borrowBook(book inBook);
+    void borrowBook();
+    void addBook(book newBook);
     void depositBook(int input=0);
     string toString();
 };
