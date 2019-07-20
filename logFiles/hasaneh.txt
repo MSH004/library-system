@@ -1,4 +1,0 @@
-accountType:admin
-name:hasan abolaban
-username:hasaneh
-password:hasan1234
