@@ -1,4 +1,0 @@
-accountType:admin
-name:munaib sadeq abdo ali alhelali
-username:munaibsadeq
-password:munaib1234
