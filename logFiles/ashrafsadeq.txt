@@ -1,8 +1,0 @@
-accountType:student
-name:ashraf sadeq abdo ali yahiya
-username:ashrafsadeq
-password:ashraf0000
-bookId:
-bookTitle:
-bookAuthor:
-hasBook:false
